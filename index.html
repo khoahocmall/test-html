@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khóa Học Mall - Học Mọi Lúc Mọi Nơi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    
+    <style>
+        /* --- CSS VARIABLES & THEMES --- */
+        :root {
+            /* Light Mode */
+            --primary-color: #2563eb;
+            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            
+            --header-bg: rgba(255, 255, 255, 0.98);
+            --input-bg: #f1f5f9;
+            --input-text: #1f2937;
+            
+            --tag-text: #334155;
+            --shadow-subtle: rgba(0,0,0,0.05);
+            --shadow-hover: rgba(0, 0, 0, 0.1);
+            
+            --header-height: 80px;
+            --sidebar-width: 280px;
+
+            /* VIP Button Colors */
+            --vip-gradient: linear-gradient(135deg, #FFD700 0%, #FDB931 50%, #FFC107 100%);
+            --vip-text: #78350f; 
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            
+            --header-bg: rgba(15, 23, 42, 0.98);
+            --input-bg: #334155;
+            --input-text: #f8fafc;
+            
+            --shadow-subtle: rgba(0,0,0,0.3);
+            --shadow-hover: rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- GLOBAL STYLES --- */
+        body { 
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color); 
+            margin: 0; padding: 0; 
+            color: var(--text-color); 
+            padding-top: var(--header-height);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* --- HEADER --- */
+        header { 
+            background-color: var(--header-bg);
+            box-shadow: 0 1px 10px var(--shadow-subtle); 
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 1000;
+            height: auto;
+            min-height: var(--header-height);
+            display: flex; align-items: center;
+            padding: 10px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar { 
+            max-width: 1400px; width: 100%; margin: 0 auto; padding: 0 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            gap: 20px; flex-wrap: wrap;
+        }
+
+        /* Logo Area */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            flex-shrink: 0; 
+        }
+        
+        .logo-icon {
+            font-size: 32px;
+            background: linear-gradient(to right, #2563eb, #9333ea);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main { 
+            font-size: 22px; font-weight: 800; white-space: nowrap;
+            background: linear-gradient(to right, #2563eb, #9333ea);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .logo-subtitle {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .controls-group {
+            display: flex; align-items: center; gap: 15px;
+            flex-grow: 1; max-width: 800px; justify-content: flex-end;
+        }
+
+        /* VIP BUTTON STYLES */
+        .btn-vip {
+            background: var(--vip-gradient);
+            color: var(--vip-text);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-flex; /* Quan trọng: Để nút tự co theo nội dung */
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap; 
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid #fff5c2;
+            flex-shrink: 0; 
+        }
+
+        .btn-vip i { font-size: 16px; }
+
+        .btn-vip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.6);
+            filter: brightness(105%);
+        }
+
+        /* VIP Button Sparkle Effect */
+        .btn-vip::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%;
+            width: 100%; height: 100%;
+            background: linear-gradient(
+                to right, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.8) 50%, 
+                rgba(255,255,255,0) 100%
+            );
+            transform: skewX(-25deg);
+            animation: vipShine 3s infinite;
+        }
+
+        @keyframes vipShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        .search-box { position: relative; flex-grow: 1; width: 100%; }
+        
+        .search-box input {
+            width: 100%; padding: 12px 20px 12px 45px;
+            border: 2px solid var(--border-color); border-radius: 50px;
+            outline: none; font-family: inherit; font-size: 15px;
+            background: var(--input-bg); color: var(--input-text);
+            transition: all 0.3s ease; box-sizing: border-box;
+        }
+        
+        .search-box i { 
+            position: absolute; left: 18px; top: 50%; 
+            transform: translateY(-50%); color: var(--text-muted); font-size: 16px; 
+        }
+
+        .search-box input:focus { 
+            background: var(--card-bg); border-color: var(--primary-color); 
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); 
+        }
+
+        .theme-toggle-btn {
+            width: 45px; height: 45px; border-radius: 50%;
+            border: 2px solid var(--border-color); background: var(--input-bg);
+            color: var(--text-color); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; transition: all 0.3s ease; flex-shrink: 0;
+        }
+        .theme-toggle-btn:hover {
+            border-color: var(--primary-color); color: var(--primary-color);
+            transform: rotate(15deg);
+        }
+
+        /* --- LAYOUT CONTAINER --- */
+        .container { 
+            max-width: 1400px; margin: 30px auto; padding: 0 20px; 
+            display: flex; gap: 30px; align-items: flex-start;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            flex-shrink: 0;
+            position: sticky;
+            top: calc(var(--header-height) + 30px);
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-track { background: transparent; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        .sidebar:hover::-webkit-scrollbar-thumb { background: var(--text-muted); }
+
+        .category-title {
+            font-size: 16px; font-weight: 700; margin-bottom: 15px;
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;
+            display: flex; align-items: center; gap: 8px;
+            padding-left: 5px;
+        }
+
+        .category-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .cat-tag {
+            padding: 12px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex; align-items: center; gap: 12px;
+            position: relative; overflow: hidden;
+            border: 1px solid transparent;
+            font-weight: 600; font-size: 14px;
+            color: var(--tag-text);
+            width: 100%; box-sizing: border-box;
+            text-align: left;
+        }
+
+        .cat-tag i {
+            font-size: 16px; width: 28px; height: 28px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px; flex-shrink: 0;
+        }
+
+        .cat-tag.active {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+            font-weight: 700;
+        }
+
+        .cat-tag:hover {
+            transform: translateX(5px);
+            filter: brightness(1.02);
+        }
+
+        .cat-tag::after {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(
+                to right, rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%
+            );
+            transform: skewX(-25deg);
+            animation: sparkle 3s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes sparkle { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+
+        body.dark-mode .cat-tag { filter: brightness(0.85); }
+        body.dark-mode .cat-tag:hover, body.dark-mode .cat-tag.active { filter: brightness(1); }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            flex-grow: 1;
+            width: calc(100% - var(--sidebar-width) - 30px);
+            min-height: 500px;
+        }
+
+        .course-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px; 
+        }
+        
+        .card { 
+            background: var(--card-bg); border-radius: 16px; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column; 
+            border: 1px solid var(--border-color); padding: 25px; 
+            align-items: center; text-align: center;
+            height: 100%; box-sizing: border-box;
+            position: relative;
+        }
+
+        .card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 20px 25px -5px var(--shadow-hover);
+            border-color: var(--primary-color);
+        }
+        
+        .card-icon-wrapper { 
+            width: 60px; height: 60px; flex-shrink: 0;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            margin-bottom: 15px; color: var(--primary-color);
+        }
+        body.dark-mode .card-icon-wrapper { background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%); }
+        .card-icon-wrapper i { font-size: 24px; }
+        
+        .card-body { width: 100%; flex-grow: 1; display: flex; flex-direction: column; align-items: center; }
+        
+        .badge { 
+            display: inline-block; padding: 4px 12px; 
+            background-color: var(--input-bg); color: var(--text-muted); 
+            border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase;
+            margin-bottom: 12px; letter-spacing: 0.5px;
+        }
+
+        .card-title { 
+            font-size: 16px; font-weight: 700; margin: 0 0 20px 0; color: var(--text-color); 
+            line-height: 1.5; word-wrap: break-word;
+        }
+        
+        .card-actions { display: flex; gap: 10px; width: 100%; margin-top: auto; }
+        
+        .btn { 
+            flex: 1; padding: 10px; border-radius: 10px; 
+            text-align: center; text-decoration: none; font-weight: 600; font-size: 13px; 
+            transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .btn-primary { 
+            background: var(--primary-gradient); color: white; 
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+        }
+        .btn-primary:hover { filter: brightness(110%); transform: translateY(-1px); }
+        .btn-outline { border: 1px solid var(--border-color); color: var(--text-muted); background: transparent; }
+        .btn-outline:hover { border-color: var(--primary-color); color: var(--primary-color); background: var(--bg-color); }
+
+        #loading { text-align: center; padding: 60px; color: var(--text-muted); font-weight: 500;}
+        .hidden { display: none; }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 992px) {
+            .container { flex-direction: column; gap: 20px; }
+            .sidebar { 
+                width: 100%; position: static; height: auto; 
+                max-height: none; overflow: visible; 
+                padding-right: 0;
+            }
+            .category-list {
+                display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+            }
+            .main-content { width: 100%; }
+        }
+
+        /* --- MOBILE LAYOUT FIX --- */
+        @media (max-width: 768px) {
+            body { padding-top: 155px; } 
+            
+            .navbar { 
+                flex-direction: column; 
+                gap: 15px; 
+                align-items: stretch;
+                padding-bottom: 15px;
+            }
+            
+            .logo-container { 
+                justify-content: center; 
+                text-align: center; 
+            }
+            
+            .logo-subtitle { display: none; } 
+            
+            .controls-group { 
+                width: 100%; 
+                max-width: 100%; 
+                flex-wrap: wrap; 
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            /* Nút Hội Viên: Thu gọn, không giãn full width */
+            .btn-vip { 
+                width: auto; /* Tự động co theo nội dung */
+                margin: 0 auto 5px auto; /* Căn giữa */
+                order: 1; 
+                padding: 10px 25px;
+            }
+
+            .search-box { 
+                width: calc(100% - 60px);
+                order: 2; 
+            }
+            
+            .theme-toggle-btn { 
+                width: 50px; 
+                order: 3; 
+            }
+
+            .category-list { grid-template-columns: repeat(1, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <a href="#" class="logo-container">
+                <i class="fas fa-graduation-cap logo-icon"></i>
+                <div class="logo-text-group">
+                    <span class="logo-main">Khóa Học Mall</span>
+                    <span class="logo-subtitle">Gói Hội Viên VIP - Đầu tư 1 lần học trọn đời</span>
+                </div>
+            </a>
+            
+            <div class="controls-group">
+                <a href="https://khoahocmall.com/dang-ky-hoi-vien/" class="btn-vip" target="_blank">
+                    <i class="fas fa-crown"></i> Nâng cấp hội viên
+                </a>
+
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInp" placeholder="Tìm kiếm khóa học..." onkeyup="filterCourses()">
+                </div>
+                <button class="theme-toggle-btn" id="themeToggle" title="Chế độ tối/sáng">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="category-title"><i class="fas fa-folder-open"></i> Danh mục</div>
+            <div id="categoryList" class="category-list">
+                </div>
+        </aside>
+
+        <main class="main-content">
+            <div id="loading"><i class="fas fa-spinner fa-spin"></i> Đang tải dữ liệu...</div>
+            <div class="course-grid" id="courseList"></div>
+        </main>
+    </div>
+
+    <script>
+        // Link Google Sheet (dạng CSV) đã được liên kết chính xác
+        const CSV_URL_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQmZCaVz-MLaFWpkcBolwbSeLQWcKHYPXf6tVflgEPK-dTpOjky_uC5eLkcQIF88QWWycxPHDg1K6Ws/pub?output=csv';
+        
+        let allCourses = [];
+        let currentCategory = 'all';
+
+        const pastelColors = [
+            '#FFB3BA', '#FFDFBA', '#FFFFBA', '#BAFFC9', '#BAE1FF', 
+            '#E2F0CB', '#FNC1E1', '#C1F0F6', '#E0BBE4', '#957DAD'
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => { 
+            fetchData(); 
+            initTheme();
+        });
+
+        // Theme Logic
+        function initTheme() {
+            const toggleBtn = document.getElementById('themeToggle');
+            const icon = toggleBtn.querySelector('i');
+            const savedTheme = localStorage.getItem('theme');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        }
+
+        function fetchData() {
+            // Thêm tham số thời gian để tránh Cache trình duyệt, giúp dữ liệu cập nhật ngay lập tức
+            const cacheBuster = '&t=' + new Date().getTime();
+            const finalUrl = CSV_URL_BASE + cacheBuster;
+
+            Papa.parse(finalUrl, {
+                download: true, header: true, skipEmptyLines: true,
+                complete: function(results) {
+                    allCourses = results.data;
+                    if (allCourses.length > 0) {
+                        document.getElementById('loading').classList.add('hidden');
+                        populateCategories();
+                        renderCourses(allCourses);
+                    } else {
+                        document.getElementById('loading').innerHTML = "Không tìm thấy dữ liệu hoặc trang tính rỗng.";
+                    }
+                },
+                error: function(err) { 
+                    console.error(err);
+                    document.getElementById('loading').innerHTML = "Lỗi tải dữ liệu. Vui lòng kiểm tra đường truyền.";
+                }
+            });
+        }
+
+        function getIconForCategory(catName) {
+            const name = catName.toLowerCase();
+            if (name.includes('marketing')) return 'fa-bullhorn';
+            if (name.includes('kinh doanh') || name.includes('business')) return 'fa-briefcase';
+            if (name.includes('thiết kế') || name.includes('design')) return 'fa-palette';
+            if (name.includes('lập trình') || name.includes('code') || name.includes('it')) return 'fa-laptop-code';
+            if (name.includes('ngoại ngữ') || name.includes('tiếng')) return 'fa-language';
+            if (name.includes('kỹ năng')) return 'fa-star';
+            if (name.includes('nhạc') || name.includes('họa')) return 'fa-music';
+            if (name.includes('sức khỏe')) return 'fa-heartbeat';
+            return 'fa-folder'; 
+        }
+
+        function populateCategories() {
+            const categories = new Set();
+            allCourses.forEach(course => {
+                let cat = course.DanhMuc || course['DanhMuc'];
+                if(cat) categories.add(cat.trim());
+            });
+
+            const container = document.getElementById('categoryList');
+            container.innerHTML = '';
+
+            // Nút Tất cả
+            const allBtn = createCategoryTag('Tất cả', 'all', '#eff6ff', 'fa-layer-group');
+            allBtn.classList.add('active'); 
+            container.appendChild(allBtn);
+
+            let colorIndex = 0;
+            categories.forEach(cat => {
+                const color = pastelColors[colorIndex % pastelColors.length];
+                const icon = getIconForCategory(cat);
+                const tag = createCategoryTag(cat, cat, color, icon);
+                container.appendChild(tag);
+                colorIndex++;
+            });
+        }
+
+        function createCategoryTag(label, value, color, iconClass) {
+            const div = document.createElement('div');
+            div.className = 'cat-tag';
+            div.style.backgroundColor = color;
+            div.setAttribute('data-value', value);
+            div.onclick = () => selectCategory(value, div);
+            
+            div.innerHTML = `
+                <i class="fas ${iconClass}"></i>
+                <span>${label}</span>
+            `;
+            return div;
+        }
+
+        function selectCategory(val, element) {
+            currentCategory = val;
+            const tags = document.querySelectorAll('.cat-tag');
+            tags.forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+            filterCourses();
+            
+            // Mobile: Scroll to content when category clicked
+            if (window.innerWidth <= 992) {
+                document.getElementById('courseList').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function filterCourses() {
+            const searchTerm = document.getElementById('searchInp').value.toLowerCase().trim();
+
+            const filtered = allCourses.filter(course => {
+                let ten = course.TenKhoaHoc || course['TenKhoaHoc'];
+                let danhmuc = course.DanhMuc || course['DanhMuc'];
+                
+                if (!ten) return false;
+                const matchName = ten.toLowerCase().includes(searchTerm);
+                const matchCat = currentCategory === 'all' || (danhmuc && danhmuc.trim() === currentCategory);
+                return matchName && matchCat;
+            });
+
+            renderCourses(filtered);
+        }
+
+        function renderCourses(courses) {
+            const container = document.getElementById('courseList');
+            container.innerHTML = '';
+            
+            if (courses.length === 0) {
+                container.innerHTML = '<p style="text-align:center; width:100%; color:var(--text-muted); grid-column: 1/-1; padding: 20px;">Không tìm thấy khóa học phù hợp.</p>';
+                return;
+            }
+
+            courses.forEach(course => {
+                let ten = course.TenKhoaHoc || course['TenKhoaHoc']; 
+                let danhmuc = course.DanhMuc || course['DanhMuc'];
+                let urlChung = course.URL || course['URL']; 
+                if (!ten) return;
+
+                let buttonsHtml = '';
+                if (urlChung) {
+                    buttonsHtml = `
+                        <a href="${urlChung}" target="_blank" class="btn btn-primary"><i class="fas fa-play"></i> Học ngay</a>
+                        <a href="${urlChung}" target="_blank" class="btn btn-outline"><i class="fas fa-download"></i> Tải về</a>
+                    `;
+                }
+
+                const card = `
+                    <div class="card">
+                        <div class="card-icon-wrapper"><i class="fas fa-book-open"></i></div>
+                        <div class="card-body">
+                            <span class="badge">${danhmuc || 'Chung'}</span>
+                            <h3 class="card-title" title="${ten}">${ten}</h3>
+                            <div class="card-actions">${buttonsHtml}</div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+    </script>
+</body>
+</html>
