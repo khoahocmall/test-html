@@ -15,6 +15,9 @@
             --sidebar-width: 380px;
             --header-height: 60px;
             --success-color: #28a745;
+            --warning-bg: #fff3cd;
+            --warning-text: #856404;
+            --warning-border: #ffeeba;
         }
 
         * {
@@ -204,11 +207,34 @@
         }
         .btn-outline:hover { background: var(--accent-light); }
 
+        /* LƯU Ý / NOTE SECTION */
+        .note-alert {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 20px;
+            background-color: var(--warning-bg);
+            color: var(--warning-text);
+            border: 1px solid var(--warning-border);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .note-alert i {
+            font-size: 18px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
         /* MATERIALS SECTION */
         .materials-section {
             width: 100%;
             max-width: 1000px;
-            margin-top: 30px;
+            margin-top: 20px;
             margin-bottom: 30px;
             background: #fff;
             padding: 20px;
@@ -400,6 +426,13 @@
                 </div>
             </div>
 
+            <div class="note-alert">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <strong>Lưu ý:</strong> Nếu khóa học không trình chiếu được, bạn hãy ấn trực tiếp đến nút <strong>Link Drive</strong> để tải về hoặc xem trực tiếp trên Drive nhé!
+                </div>
+            </div>
+
             <div class="materials-section">
                 <div class="materials-header">
                     <i class="fas fa-box-open" style="color: #28a745;"></i> Tài liệu khóa học
@@ -424,7 +457,7 @@
     </div>
 
     <script>
-        // Dữ liệu khóa học được cập nhật từ file CSV
+        // Dữ liệu khóa học từ CSV
         const courseData = [
             {
                 unit: "Phần 1. Tại sao tôi cần phải giỏi tiếng anh",
@@ -493,24 +526,16 @@
 
         // --- HÀM XỬ LÝ LINK (Cập nhật hỗ trợ Docs) ---
         function getEmbedLink(url) {
-            // 1. Xử lý link Facebook
             if (url.includes('facebook.com') || url.includes('fb.watch')) {
                 let encodedUrl = encodeURIComponent(url);
                 return `https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=0&t=0`;
             }
-
-            // 2. Xử lý link Google Drive (Video)
             if (url.includes('drive.google.com')) {
                 return url.replace('/view', '/preview').replace('?usp=drivesdk', '');
             }
-
-            // 3. Xử lý link Google Docs (Word/Excel...) để xem trước thay vì sửa
             if (url.includes('docs.google.com')) {
-                 // Chuyển /edit thành /preview để nhúng iframe đẹp hơn
                  return url.split('/edit')[0] + '/preview';
             }
-
-            // 4. Các link khác trả về nguyên gốc
             return url;
         }
 
@@ -540,7 +565,6 @@
                     li.dataset.uIndex = uIndex;
                     li.dataset.lIndex = lIndex;
                     
-                    // Kiểm tra loại icon (video hoặc tài liệu)
                     let iconClass = "fa-play";
                     if(lesson.title.toLowerCase().includes('word') || lesson.title.toLowerCase().includes('sach')) {
                         iconClass = "fa-file-word";
