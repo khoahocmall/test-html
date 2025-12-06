@@ -69,12 +69,19 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-right: 10px;
         }
         .logo i { font-size: 24px; }
 
-        /* NÚT MỞ KHÓA */
-        .btn-unlock {
-            background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
+        /* HEADER BUTTONS GROUP */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* STYLE CHUNG CHO CÁC NÚT HEADER */
+        .btn-header {
             color: #fff;
             padding: 8px 16px;
             border-radius: 50px;
@@ -84,18 +91,18 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
             position: relative;
             overflow: hidden;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
             border: 1px solid rgba(255,255,255,0.3);
             white-space: nowrap;
         }
 
-        .btn-unlock:active { transform: scale(0.95); }
-        .btn-unlock:hover { transform: scale(1.05); }
+        .btn-header:active { transform: scale(0.95); }
+        .btn-header:hover { transform: scale(1.05); z-index: 1; }
 
-        .btn-unlock::after {
+        /* Hiệu ứng lấp lánh chung */
+        .btn-header::after {
             content: '';
             position: absolute;
             top: 0; left: -100%; width: 50%; height: 100%;
@@ -104,6 +111,26 @@
             animation: shine 3s infinite;
         }
         @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+
+        /* MÀU SẮC RIÊNG TỪNG NÚT */
+        
+        /* 1. Nút OneDrive (Xanh dương đám mây) */
+        .btn-onedrive {
+            background: linear-gradient(135deg, #0078D4 0%, #00bcf2 100%);
+            box-shadow: 0 4px 15px rgba(0, 120, 212, 0.4);
+        }
+
+        /* 2. Nút Google Drive (Xanh lá/Teal) */
+        .btn-googledrive {
+            background: linear-gradient(135deg, #0F9D58 0%, #00d2ff 100%);
+            box-shadow: 0 4px 15px rgba(15, 157, 88, 0.4);
+        }
+
+        /* 3. Nút Mở Khóa (Vàng cam - Cũ) */
+        .btn-unlock {
+            background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
+        }
 
         /* LAYOUT CONTAINER */
         .container {
@@ -374,10 +401,15 @@
         }
 
         @media (max-width: 600px) {
-            header { padding: 0 15px; }
-            .logo span { font-size: 15px; max-width: 180px; }
-            .btn-unlock span { display: none; }
-            .btn-unlock { padding: 8px; border-radius: 50%; }
+            header { padding: 0 10px; }
+            .logo span { font-size: 15px; max-width: 120px; }
+            
+            /* Responsive cho nút Header */
+            .header-actions { gap: 6px; }
+            .btn-header { padding: 8px; border-radius: 50%; width: 36px; height: 36px; justify-content: center; }
+            .btn-header span { display: none; } /* Ẩn chữ trên mobile */
+            .btn-header i { font-size: 14px; margin: 0; }
+            
             .main-content { padding: 10px; }
             .lesson-title { font-size: 18px; margin-top: 10px; }
             .lesson-actions .btn { flex: 1; padding: 12px; }
@@ -394,16 +426,26 @@
             <i class="fas fa-graduation-cap"></i> <span>Khoá Học Mall</span>
         </a>
         
-        <a href="https://khoahocmall.com/cua-hang/" target="_blank" class="btn-unlock" title="Mở khóa nội dung">
-            <i class="fas fa-unlock-alt"></i> <span>Mở khóa nội dung</span>
-        </a>
+        <div class="header-actions">
+            <a href="https://onedrive.live.com/" target="_blank" class="btn-header btn-onedrive" title="Mở OneDrive">
+                <i class="fas fa-cloud"></i> <span>OneDrive</span>
+            </a>
+
+            <a href="https://drive.google.com/" target="_blank" class="btn-header btn-googledrive" title="Mở Google Drive">
+                <i class="fab fa-google-drive"></i> <span>GoogleDrive</span>
+            </a>
+
+            <a href="https://khoahocmall.com/cua-hang/" target="_blank" class="btn-header btn-unlock" title="Mở khóa nội dung">
+                <i class="fas fa-unlock-alt"></i> <span>Mở khóa nội dung</span>
+            </a>
+        </div>
     </header>
 
     <div class="container">
         <div class="main-content" id="mainContent">
             <div class="video-wrapper">
                 <div class="video-container">
-                    <iframe id="videoPlayer" src="" allowfullscreen title="Video Player"></iframe>
+                    <iframe id="videoPlayer" src="" allowfullscreen allow="autoplay" title="Video Player"></iframe>
                 </div>
             </div>
             
@@ -457,12 +499,14 @@
     </div>
 
     <script>
-        // Dữ liệu khóa học từ CSV
+        // Dữ liệu khóa học
         const courseData = [
             {
                 unit: "Phần 1. Tại sao tôi cần phải giỏi tiếng anh",
                 lessons: [
-                    { title: "Bài 01_ Động lực học tiếng anh", link: "https://drive.google.com/file/d/1qAhNo8R4uVEPnw0nS-8dyTkTGGT29vmi/view" },
+                    // CẬP NHẬT: Link bài 1 mới
+                    { title: "Bài 01_ Động lực học tiếng anh", link: "https://drive.google.com/file/d/1qAhNo8R4uVEPnw0nS-8dyTkTGGT29vmi/view?usp=sharing" },
+                    
                     { title: "Bài 02_ Cam kết của khóa học", link: "https://drive.google.com/file/d/1c6kXgV5_kMSCIA7OrYkvRm2WpdKj8BLz/view?usp=drivesdk" },
                     { title: "Bài 03_ Lộ trình của khóa học", link: "https://drive.google.com/file/d/1WnWRdfVipgG_TaLgHD87_WLvq1q7Inc5/view?usp=drivesdk" }
                 ]
@@ -651,4 +695,3 @@
     </script>
 </body>
 </html>
-
