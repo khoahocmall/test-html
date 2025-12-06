@@ -2,651 +2,628 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khóa Học Mall - Học Mọi Lúc Mọi Nơi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khoá Học Mall - Tiếng Anh Giao Tiếp</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* --- CSS VARIABLES & THEMES --- */
         :root {
-            /* Light Mode */
-            --primary-color: #2563eb;
-            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-color: #1f2937;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            
-            --header-bg: rgba(255, 255, 255, 0.98);
-            --input-bg: #f1f5f9;
-            --input-text: #1f2937;
-            
-            --tag-text: #334155;
-            --shadow-subtle: rgba(0,0,0,0.05);
-            --shadow-hover: rgba(0, 0, 0, 0.1);
-            
-            --header-height: 80px;
-            --sidebar-width: 280px;
-
-            /* VIP Button Colors */
-            --vip-gradient: linear-gradient(135deg, #FFD700 0%, #FDB931 50%, #FFC107 100%);
-            --vip-text: #78350f; 
+            --primary-color: #0066cc;
+            --primary-dark: #004c99;
+            --accent-light: #e6f2ff;
+            --bg-page: #f0f2f5;
+            --text-dark: #1c1e21;
+            --sidebar-width: 380px;
+            --header-height: 60px;
+            --success-color: #28a745;
         }
 
-        /* Dark Mode */
-        body.dark-mode {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
-            
-            --header-bg: rgba(15, 23, 42, 0.98);
-            --input-bg: #334155;
-            --input-text: #f8fafc;
-            
-            --shadow-subtle: rgba(0,0,0,0.3);
-            --shadow-hover: rgba(0, 0, 0, 0.5);
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- GLOBAL STYLES --- */
-        body { 
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-color); 
-            margin: 0; padding: 0; 
-            color: var(--text-color); 
-            padding-top: var(--header-height);
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+        html { scroll-behavior: smooth; }
         
-        /* --- HEADER --- */
-        header { 
-            background-color: var(--header-bg);
-            box-shadow: 0 1px 10px var(--shadow-subtle); 
-            position: fixed; top: 0; left: 0; right: 0;
-            z-index: 1000;
-            height: auto;
-            min-height: var(--header-height);
-            display: flex; align-items: center;
-            padding: 10px 0;
-            transition: background-color 0.3s ease;
-        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #b0c4de; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0066cc; }
 
-        .navbar { 
-            max-width: 1400px; width: 100%; margin: 0 auto; padding: 0 20px; 
-            display: flex; justify-content: space-between; align-items: center; 
-            gap: 20px; flex-wrap: wrap;
-        }
-
-        /* Logo Area */
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            flex-shrink: 0; 
-        }
-        
-        .logo-icon {
-            font-size: 32px;
-            background: linear-gradient(to right, #2563eb, #9333ea);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
-        .logo-text-group {
+        body {
+            background-color: var(--bg-page);
             display: flex;
             flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .logo-main { 
-            font-size: 22px; font-weight: 800; white-space: nowrap;
-            background: linear-gradient(to right, #2563eb, #9333ea);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 1.2;
+        /* HEADER */
+        header {
+            background-color: var(--primary-color);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            justify-content: space-between;
         }
 
-        .logo-subtitle {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-muted);
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-        }
-
-        .controls-group {
-            display: flex; align-items: center; gap: 15px;
-            flex-grow: 1; max-width: 800px; justify-content: flex-end;
-        }
-
-        /* VIP BUTTON STYLES */
-        .btn-vip {
-            background: var(--vip-gradient);
-            color: var(--vip-text);
-            padding: 10px 20px;
-            border-radius: 50px;
+        .logo {
+            font-size: 18px;
             font-weight: 700;
-            font-size: 14px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             text-decoration: none;
-            display: inline-flex; /* Quan trọng: Để nút tự co theo nội dung */
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .logo i { font-size: 24px; }
+
+        /* NÚT MỞ KHÓA */
+        .btn-unlock {
+            background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s;
+            border: 1px solid rgba(255,255,255,0.3);
+            white-space: nowrap;
+        }
+
+        .btn-unlock:active { transform: scale(0.95); }
+        .btn-unlock:hover { transform: scale(1.05); }
+
+        .btn-unlock::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+
+        /* LAYOUT CONTAINER */
+        .container {
+            display: flex;
+            flex-direction: row;
+            margin-top: var(--header-height);
+            height: calc(100vh - var(--header-height));
+            overflow: hidden;
+        }
+
+        /* 1. LEFT: MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .video-wrapper {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%; border: none;
+        }
+
+        .lesson-info {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 20px;
+        }
+
+        .lesson-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .lesson-meta {
+            color: #606060;
+            font-size: 14px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* ACTIONS & BUTTONS */
+        .lesson-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            white-space: nowrap; 
-            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 2px solid #fff5c2;
-            flex-shrink: 0; 
+            transition: all 0.2s;
+            text-decoration: none;
+            white-space: nowrap;
         }
+        .btn:active { transform: translateY(1px); }
 
-        .btn-vip i { font-size: 16px; }
-
-        .btn-vip:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.6);
-            filter: brightness(105%);
+        .btn-primary { 
+            background-color: var(--primary-color); 
+            color: white; 
+            box-shadow: 0 2px 5px rgba(0, 102, 204, 0.2);
         }
-
-        /* VIP Button Sparkle Effect */
-        .btn-vip::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -150%;
-            width: 100%; height: 100%;
-            background: linear-gradient(
-                to right, 
-                rgba(255,255,255,0) 0%, 
-                rgba(255,255,255,0.8) 50%, 
-                rgba(255,255,255,0) 100%
-            );
-            transform: skewX(-25deg);
-            animation: vipShine 3s infinite;
-        }
-
-        @keyframes vipShine {
-            0% { left: -150%; }
-            20% { left: 150%; }
-            100% { left: 150%; }
-        }
-
-        .search-box { position: relative; flex-grow: 1; width: 100%; }
+        .btn-primary:hover { background-color: var(--primary-dark); }
         
-        .search-box input {
-            width: 100%; padding: 12px 20px 12px 45px;
-            border: 2px solid var(--border-color); border-radius: 50px;
-            outline: none; font-family: inherit; font-size: 15px;
-            background: var(--input-bg); color: var(--input-text);
-            transition: all 0.3s ease; box-sizing: border-box;
+        .btn-outline { 
+            background: white; 
+            color: var(--primary-color); 
+            border: 1px solid var(--primary-color); 
+        }
+        .btn-outline:hover { background: var(--accent-light); }
+
+        /* MATERIALS SECTION */
+        .materials-section {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .materials-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
-        .search-box i { 
-            position: absolute; left: 18px; top: 50%; 
-            transform: translateY(-50%); color: var(--text-muted); font-size: 16px; 
+        .materials-desc {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
         }
 
-        .search-box input:focus { 
-            background: var(--card-bg); border-color: var(--primary-color); 
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); 
+        .btn-download {
+            background-color: var(--success-color);
+            color: white;
+            width: 100%;
+            max-width: 250px;
         }
+        .btn-download:hover { background-color: #218838; }
 
-        .theme-toggle-btn {
-            width: 45px; height: 45px; border-radius: 50%;
-            border: 2px solid var(--border-color); background: var(--input-bg);
-            color: var(--text-color); cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 18px; transition: all 0.3s ease; flex-shrink: 0;
-        }
-        .theme-toggle-btn:hover {
-            border-color: var(--primary-color); color: var(--primary-color);
-            transform: rotate(15deg);
-        }
-
-        /* --- LAYOUT CONTAINER --- */
-        .container { 
-            max-width: 1400px; margin: 30px auto; padding: 0 20px; 
-            display: flex; gap: 30px; align-items: flex-start;
-        }
-
-        /* --- SIDEBAR --- */
+        /* 2. RIGHT: SIDEBAR PLAYLIST */
         .sidebar {
             width: var(--sidebar-width);
-            flex-shrink: 0;
-            position: sticky;
-            top: calc(var(--header-height) + 30px);
-            max-height: calc(100vh - 120px);
+            background: #fff;
+            border-left: 1px solid #e0e0e0;
             overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .sidebar::-webkit-scrollbar { width: 6px; }
-        .sidebar::-webkit-scrollbar-track { background: transparent; }
-        .sidebar::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
-        .sidebar:hover::-webkit-scrollbar-thumb { background: var(--text-muted); }
-
-        .category-title {
-            font-size: 16px; font-weight: 700; margin-bottom: 15px;
-            color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;
-            display: flex; align-items: center; gap: 8px;
-            padding-left: 5px;
-        }
-
-        .category-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            flex-shrink: 0;
+            height: 100%;
         }
 
-        .cat-tag {
+        .sidebar-header {
+            padding: 15px 20px;
+            border-bottom: 2px solid var(--primary-color);
+            position: sticky; top: 0; 
+            background: #f8faff;
+            z-index: 10;
+        }
+        
+        .playlist-info h3 { font-size: 16px; color: var(--primary-dark); margin-bottom: 2px; }
+        .playlist-info span { font-size: 12px; color: #666; }
+
+        .unit-group { border-bottom: 1px solid #eee; }
+
+        .unit-title {
             padding: 12px 15px;
-            border-radius: 12px;
+            background: #fff;
             cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex; align-items: center; gap: 12px;
-            position: relative; overflow: hidden;
-            border: 1px solid transparent;
-            font-weight: 600; font-size: 14px;
-            color: var(--tag-text);
-            width: 100%; box-sizing: border-box;
-            text-align: left;
+            font-weight: 600;
+            color: #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .unit-title:hover { background: #f5f5f5; color: var(--primary-color); }
+        .unit-group.active .unit-title i { transform: rotate(180deg); }
+
+        .lesson-list { display: none; list-style: none; }
+        .unit-group.active .lesson-list { display: block; }
+
+        .lesson-item {
+            display: flex;
+            gap: 10px;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            align-items: flex-start;
+            border-left: 3px solid transparent;
+            border-bottom: 1px solid #f0f0f0;
         }
 
-        .cat-tag i {
-            font-size: 16px; width: 28px; height: 28px;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(255,255,255,0.7);
-            border-radius: 8px; flex-shrink: 0;
+        .lesson-item:hover { background-color: #f0f8ff; }
+        
+        .lesson-item.active {
+            background-color: var(--accent-light);
+            border-left: 3px solid var(--primary-color);
         }
-
-        .cat-tag.active {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        
+        .lesson-item.active .lesson-name {
+            color: var(--primary-color);
             font-weight: 700;
         }
-
-        .cat-tag:hover {
-            transform: translateX(5px);
-            filter: brightness(1.02);
+        
+        .lesson-item.active .thumbnail-placeholder {
+            background-color: var(--primary-color);
+            color: white;
         }
 
-        .cat-tag::after {
-            content: ''; position: absolute; top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(
-                to right, rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%
-            );
-            transform: skewX(-25deg);
-            animation: sparkle 3s infinite;
-            pointer-events: none;
-        }
-
-        @keyframes sparkle { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
-
-        body.dark-mode .cat-tag { filter: brightness(0.85); }
-        body.dark-mode .cat-tag:hover, body.dark-mode .cat-tag.active { filter: brightness(1); }
-
-        /* --- MAIN CONTENT --- */
-        .main-content {
-            flex-grow: 1;
-            width: calc(100% - var(--sidebar-width) - 30px);
-            min-height: 500px;
-        }
-
-        .course-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 25px; 
+        .thumbnail-placeholder {
+            width: 70px;
+            height: 40px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-size: 10px;
         }
         
-        .card { 
-            background: var(--card-bg); border-radius: 16px; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex; flex-direction: column; 
-            border: 1px solid var(--border-color); padding: 25px; 
-            align-items: center; text-align: center;
-            height: 100%; box-sizing: border-box;
-            position: relative;
+        .lesson-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.3;
+            margin-bottom: 2px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .lesson-status { font-size: 11px; color: #888; }
+
+        /* RESPONSIVE */
+        @media (max-width: 991px) {
+            body { height: auto; overflow: visible; }
+            .container { flex-direction: column; height: auto; margin-top: var(--header-height); }
+            .main-content { width: 100%; padding: 15px; order: 1; }
+            .sidebar { width: 100%; height: auto; max-height: 500px; border-left: none; border-top: 1px solid #ddd; order: 2; }
+            .lesson-title { font-size: 20px; }
         }
 
-        .card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 20px 25px -5px var(--shadow-hover);
-            border-color: var(--primary-color);
-        }
-        
-        .card-icon-wrapper { 
-            width: 60px; height: 60px; flex-shrink: 0;
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            margin-bottom: 15px; color: var(--primary-color);
-        }
-        body.dark-mode .card-icon-wrapper { background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%); }
-        .card-icon-wrapper i { font-size: 24px; }
-        
-        .card-body { width: 100%; flex-grow: 1; display: flex; flex-direction: column; align-items: center; }
-        
-        .badge { 
-            display: inline-block; padding: 4px 12px; 
-            background-color: var(--input-bg); color: var(--text-muted); 
-            border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase;
-            margin-bottom: 12px; letter-spacing: 0.5px;
-        }
-
-        .card-title { 
-            font-size: 16px; font-weight: 700; margin: 0 0 20px 0; color: var(--text-color); 
-            line-height: 1.5; word-wrap: break-word;
-        }
-        
-        .card-actions { display: flex; gap: 10px; width: 100%; margin-top: auto; }
-        
-        .btn { 
-            flex: 1; padding: 10px; border-radius: 10px; 
-            text-align: center; text-decoration: none; font-weight: 600; font-size: 13px; 
-            transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
-        }
-        .btn-primary { 
-            background: var(--primary-gradient); color: white; 
-            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
-        }
-        .btn-primary:hover { filter: brightness(110%); transform: translateY(-1px); }
-        .btn-outline { border: 1px solid var(--border-color); color: var(--text-muted); background: transparent; }
-        .btn-outline:hover { border-color: var(--primary-color); color: var(--primary-color); background: var(--bg-color); }
-
-        #loading { text-align: center; padding: 60px; color: var(--text-muted); font-weight: 500;}
-        .hidden { display: none; }
-
-        /* --- RESPONSIVE ADJUSTMENTS --- */
-        @media (max-width: 992px) {
-            .container { flex-direction: column; gap: 20px; }
-            .sidebar { 
-                width: 100%; position: static; height: auto; 
-                max-height: none; overflow: visible; 
-                padding-right: 0;
-            }
-            .category-list {
-                display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
-            }
-            .main-content { width: 100%; }
-        }
-
-        /* --- MOBILE LAYOUT FIX --- */
-        @media (max-width: 768px) {
-            body { padding-top: 155px; } 
-            
-            .navbar { 
-                flex-direction: column; 
-                gap: 15px; 
-                align-items: stretch;
-                padding-bottom: 15px;
-            }
-            
-            .logo-container { 
-                justify-content: center; 
-                text-align: center; 
-            }
-            
-            .logo-subtitle { display: none; } 
-            
-            .controls-group { 
-                width: 100%; 
-                max-width: 100%; 
-                flex-wrap: wrap; 
-                justify-content: space-between;
-                gap: 10px;
-            }
-
-            /* Nút Hội Viên: Thu gọn, không giãn full width */
-            .btn-vip { 
-                width: auto; /* Tự động co theo nội dung */
-                margin: 0 auto 5px auto; /* Căn giữa */
-                order: 1; 
-                padding: 10px 25px;
-            }
-
-            .search-box { 
-                width: calc(100% - 60px);
-                order: 2; 
-            }
-            
-            .theme-toggle-btn { 
-                width: 50px; 
-                order: 3; 
-            }
-
-            .category-list { grid-template-columns: repeat(1, 1fr); }
+        @media (max-width: 600px) {
+            header { padding: 0 15px; }
+            .logo span { font-size: 15px; max-width: 180px; }
+            .btn-unlock span { display: none; }
+            .btn-unlock { padding: 8px; border-radius: 50%; }
+            .main-content { padding: 10px; }
+            .lesson-title { font-size: 18px; margin-top: 10px; }
+            .lesson-actions .btn { flex: 1; padding: 12px; }
+            .materials-section { padding: 15px; }
+            .video-wrapper { margin: -10px -10px 0 -10px; width: calc(100% + 20px); max-width: none; }
+            .video-container { border-radius: 0; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="navbar">
-            <a href="#" class="logo-container">
-                <i class="fas fa-graduation-cap logo-icon"></i>
-                <div class="logo-text-group">
-                    <span class="logo-main">Khóa Học Mall</span>
-                    <span class="logo-subtitle">Gói Hội Viên VIP - Đầu tư 1 lần học trọn đời</span>
-                </div>
-            </a>
-            
-            <div class="controls-group">
-                <a href="https://khoahocmall.com/dang-ky-hoi-vien/" class="btn-vip" target="_blank">
-                    <i class="fas fa-crown"></i> Nâng cấp hội viên
-                </a>
-
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInp" placeholder="Tìm kiếm khóa học..." onkeyup="filterCourses()">
-                </div>
-                <button class="theme-toggle-btn" id="themeToggle" title="Chế độ tối/sáng">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
-        </div>
+        <a href="#" class="logo">
+            <i class="fas fa-graduation-cap"></i> <span>Khoá Học Mall</span>
+        </a>
+        
+        <a href="https://khoahocmall.com/cua-hang/" target="_blank" class="btn-unlock" title="Mở khóa nội dung">
+            <i class="fas fa-unlock-alt"></i> <span>Mở khóa nội dung</span>
+        </a>
     </header>
 
     <div class="container">
-        <aside class="sidebar">
-            <div class="category-title"><i class="fas fa-folder-open"></i> Danh mục</div>
-            <div id="categoryList" class="category-list">
+        <div class="main-content" id="mainContent">
+            <div class="video-wrapper">
+                <div class="video-container">
+                    <iframe id="videoPlayer" src="" allowfullscreen title="Video Player"></iframe>
                 </div>
-        </aside>
+            </div>
+            
+            <div class="lesson-info">
+                <h1 class="lesson-title" id="lessonTitle">Loading...</h1>
+                <div class="lesson-meta">
+                    <i class="fas fa-folder-open"></i> <span id="unitName">Chương học</span>
+                </div>
+                
+                <div class="lesson-actions">
+                    <button class="btn btn-outline" onclick="prevLesson()">
+                        <i class="fas fa-chevron-left"></i> Trước
+                    </button>
+                    <button class="btn btn-outline" onclick="nextLesson()">
+                        Tiếp theo <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <a href="#" target="_blank" class="btn btn-primary" id="driveLinkBtn">
+                        <i class="fab fa-google-drive"></i> Link Drive
+                    </a>
+                </div>
+            </div>
 
-        <main class="main-content">
-            <div id="loading"><i class="fas fa-spinner fa-spin"></i> Đang tải dữ liệu...</div>
-            <div class="course-grid" id="courseList"></div>
-        </main>
+            <div class="materials-section">
+                <div class="materials-header">
+                    <i class="fas fa-box-open" style="color: #28a745;"></i> Tài liệu khóa học
+                </div>
+                <p class="materials-desc">
+                    Tải xuống toàn bộ tài liệu thực hành, file nghe và bài tập đính kèm.
+                </p>
+                <a href="https://drive.google.com/drive/folders/10VkQb0UymRSCi3ygDSKjcMzGITcpiwDJ" target="_blank" class="btn btn-download">
+                    <i class="fas fa-cloud-download-alt"></i> Tải tài liệu
+                </a>
+            </div>
+        </div>
+
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="playlist-info">
+                    <h3>Chinh phục tiếng anh từ con số 0</h3>
+                    <span>Danh sách bài học</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Link Google Sheet (dạng CSV) đã được liên kết chính xác
-        const CSV_URL_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQmZCaVz-MLaFWpkcBolwbSeLQWcKHYPXf6tVflgEPK-dTpOjky_uC5eLkcQIF88QWWycxPHDg1K6Ws/pub?output=csv';
-        
-        let allCourses = [];
-        let currentCategory = 'all';
-
-        const pastelColors = [
-            '#FFB3BA', '#FFDFBA', '#FFFFBA', '#BAFFC9', '#BAE1FF', 
-            '#E2F0CB', '#FNC1E1', '#C1F0F6', '#E0BBE4', '#957DAD'
+        // Dữ liệu khóa học được cập nhật từ file CSV
+        const courseData = [
+            {
+                unit: "Phần 1. Tại sao tôi cần phải giỏi tiếng anh",
+                lessons: [
+                    { title: "Bài 01_ Động lực học tiếng anh", link: "https://drive.google.com/file/d/1qAhNo8R4uVEPnw0nS-8dyTkTGGT29vmi/view?usp=drivesdk" },
+                    { title: "Bài 02_ Cam kết của khóa học", link: "https://drive.google.com/file/d/1c6kXgV5_kMSCIA7OrYkvRm2WpdKj8BLz/view?usp=drivesdk" },
+                    { title: "Bài 03_ Lộ trình của khóa học", link: "https://drive.google.com/file/d/1WnWRdfVipgG_TaLgHD87_WLvq1q7Inc5/view?usp=drivesdk" }
+                ]
+            },
+            {
+                unit: "Phần 2. Ngữ âm Chuẩn mỹ bằng phương pháp Crazy english",
+                lessons: [
+                    { title: "Bài 05_ Thực hành và ví dụ nguyên âm đơn e & æ", link: "https://drive.google.com/file/d/1_IMS3hIXPIjZCFfcj6v-UL7Pztdz8Q5-/view?usp=drivesdk" },
+                    { title: "Bài 06_ Thực hành và ví dụ nguyên âm đơn ʌ and ɜːr", link: "https://drive.google.com/file/d/1-x3yRvxPqrTda5eeP1-IqsHpSAVjTh1T/view?usp=drivesdk" },
+                    { title: "Bài 08_ Thực hành và ví dụ nguyên âm đơn ɑː & ɑːr", link: "https://drive.google.com/file/d/1gG_Ai26TeANLyqaGyKEX-ILrngTAqcWw/view?usp=drivesdk" },
+                    { title: "Bài 10_ Thực hành và ví dụ nguyên âm đơn ʊ & uː", link: "https://drive.google.com/file/d/1XW7XGd-2JDGpRaM1sByIX6pkPpMSKvCU/view?usp=drivesdk" },
+                    { title: "Bài 11_ Chuyên đề 2_ Nguyên âm đôi - Thực hành và ví dụ nguyên âm đôi eɪ & aɪ", link: "https://drive.google.com/file/d/1t6GWZUnatYrIbtcel47V3FvGFU6tqXbg/view?usp=drivesdk" },
+                    { title: "Bài 12_ Thực hành và ví dụ nguyên âm đôi ɔɪ, aʊ & oʊ", link: "https://drive.google.com/file/d/111MPpX7wbCKbfygQvtXN9Sw7nTUDnEBn/view?usp=drivesdk" },
+                    { title: "Bài 13_ Chuyên đề 3_ Phụ âm - Thực hành và ví dụ phụ âm p & b", link: "https://drive.google.com/file/d/1c87qWQIA3nIsHHlDoaQA8LgB37aS6HGr/view?usp=drivesdk" },
+                    { title: "Bài 14_ Thực hành và ví dụ phụ âm t & d", link: "https://drive.google.com/file/d/1iHB3dL4mHjoT0ZTbZSJ-I2bysxm7hvxw/view?usp=drivesdk" },
+                    { title: "Bài 15_ Thực hành và ví dụ phụ âm k & g", link: "https://drive.google.com/file/d/1R8FKFNuUZX9a6-FqhE2YJ7yq2fx616uT/view?usp=drivesdk" },
+                    { title: "Bài 16_ Thực hành và ví dụ phụ âm f & v", link: "https://drive.google.com/file/d/1h4Sy88zLENTE5t3j46ITzkKQWsIkg06-/view?usp=drivesdk" },
+                    { title: "Bài 17_ Thực hành và ví dụ phụ âm θ & ð", link: "https://drive.google.com/file/d/1pJIE3ILWpdAX2U5i_hwG5BpA9XQfELYC/view?usp=drivesdk" },
+                    { title: "Bài 18_ Thực hành và ví dụ phụ âm h & r & w", link: "https://drive.google.com/file/d/1-udPEIw2FS-NyQtX3MPet_34TTozbg02/view?usp=drivesdk" },
+                    { title: "Bài 19_ Thực hành và ví dụ phụ âm s, z, ʃ, ʒ", link: "https://drive.google.com/file/d/1U1p1vLwdpp5tu6nbMT9wkftjbcRnzFcr/view?usp=drivesdk" },
+                    { title: "Bài 20_ Thực hành và ví dụ phụ âm tʃ, dʒ", link: "https://drive.google.com/file/d/1ZEpnrdV3EvrkGjHtBlm116gnt2oy5ogc/view?usp=drivesdk" },
+                    { title: "Bài 21_ Thực hành và ví dụ phụ âm m, n & ŋ", link: "https://drive.google.com/file/d/19iHLYG1dH7tDB0KA3WPZPGf0_87kv6eb/view?usp=drivesdk" },
+                    { title: "Bài 22_ Thực hành và ví dụ phụ âm l, j", link: "https://drive.google.com/file/d/1O1k6d_w30XRuDdqdVe92NL8iWqfNjc3o/view?usp=drivesdk" },
+                    { title: "Bài 23_ Chủ đề 4_ ngữ âm nâng cao - Nối âm, biến âm và giảm âm", link: "https://drive.google.com/file/d/1IZ2eUIOJPRIZ2SW5qdUODyYY0vxDCCLu/view?usp=drivesdk" },
+                    { title: "Bài 04_ Chuyên đề 1_ nguyên âm đơn - Thực hành và ví dụ nguyên âm đơn I & i", link: "https://drive.google.com/file/d/15G_EfA_sAQavSPK058Zn6rTxqlZnEXiH/view?usp=drivesdk" },
+                    { title: "Bài 07_ Thực hành và ví dụ nguyên âm đơn ər & ə", link: "https://drive.google.com/file/d/199_XWg9bJocWdmNwafbYz3hrXJpMPRCp/view?usp=drivesdk" },
+                    { title: "Bài 09_ Thực hành và ví dụ nguyên âm đơn ɔː & ɔːr", link: "https://drive.google.com/file/d/16zjMs8SpGPm4A_FxUaJD7lxcXQUj0LtY/view?usp=drivesdk" }
+                ]
+            },
+            {
+                unit: "Phần 3. Thuyết Trình theo đầy tự tin",
+                lessons: [
+                    { title: "Bài 24_ I'm Vietnamese", link: "https://drive.google.com/file/d/1RJTt1rcMMgrkih3Vz_SjDTci_UFZkzDW/view?usp=drivesdk" },
+                    { title: "Bài 25_ My oath", link: "https://drive.google.com/file/d/1SRoewQP02kJYEtM9pND28Ygx1Ti2NsFI/view?usp=drivesdk" },
+                    { title: "Bài 26_ Success is up To you", link: "https://drive.google.com/file/d/1K_4zOzVjJGmUxypL1bQqHqZqolKDZ6KQ/view?usp=drivesdk" },
+                    { title: "Bài 27_ Just do it", link: "https://drive.google.com/file/d/1WkZ8BtiTgoJOj9NuIHtwpJd2xNM7h4BQ/view?usp=drivesdk" },
+                    { title: "Bài 28_ How to introduce about yourself", link: "https://drive.google.com/file/d/1f5PV510WvCS2t35EuUy4KGs69YLFSvYM/view?usp=drivesdk" }
+                ]
+            },
+            {
+                unit: "Phần 4. Hội thoại thực tế theo chủ đề",
+                lessons: [
+                    { title: "Bài 29_ Greeting", link: "https://drive.google.com/file/d/13e0VGFszGYDZF18jxx781wl-pwUbDwFT/view?usp=drivesdk" },
+                    { title: "Bài 30_ Hobbies", link: "https://drive.google.com/file/d/1E_yCspVVMwyUYG7Z04Evn-nqhgwHjuYl/view?usp=drivesdk" },
+                    { title: "Bài 31_ Day Routine", link: "https://drive.google.com/file/d/1PS232ByHUT3-7mpiN0Kl-ooJvtsVCVyd/view?usp=drivesdk" },
+                    { title: "Bài 32_ Part of Body", link: "https://drive.google.com/file/d/1u7g8RsbHEdlkPQA5XpqNbZnITUEFbFma/view?usp=drivesdk" },
+                    { title: "Bài 33_ Clothes and shopping", link: "https://drive.google.com/file/d/1sHeMoPnyd4gZdXkfzlZzD-D93yeXwSoR/view?usp=drivesdk" },
+                    { title: "Bài 34_ Jobs", link: "https://drive.google.com/file/d/1hUjjIIn-FDj4Ld45Cev5SlRgtj1Vxiny/view?usp=drivesdk" }
+                ]
+            },
+            {
+                unit: "Tài Liệu Đính Kèm",
+                lessons: [
+                    { title: "Sach-starter-ban-chuan (Word)", link: "https://docs.google.com/document/d/1Lz56zDHOp_ASfCpTuwkpXWOSFazot15s/edit?usp=drivesdk&ouid=107921716647467550967&rtpof=true&sd=true" }
+                ]
+            }
         ];
 
-        document.addEventListener('DOMContentLoaded', () => { 
-            fetchData(); 
-            initTheme();
-        });
+        let currentUnitIndex = 0;
+        let currentLessonIndex = 0;
 
-        // Theme Logic
-        function initTheme() {
-            const toggleBtn = document.getElementById('themeToggle');
-            const icon = toggleBtn.querySelector('i');
-            const savedTheme = localStorage.getItem('theme');
-            
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
+        // --- HÀM XỬ LÝ LINK (Cập nhật hỗ trợ Docs) ---
+        function getEmbedLink(url) {
+            // 1. Xử lý link Facebook
+            if (url.includes('facebook.com') || url.includes('fb.watch')) {
+                let encodedUrl = encodeURIComponent(url);
+                return `https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=0&t=0`;
             }
 
-            toggleBtn.addEventListener('click', () => {
-                document.body.classList.toggle('dark-mode');
-                if (document.body.classList.contains('dark-mode')) {
-                    icon.classList.remove('fa-moon');
-                    icon.classList.add('fa-sun');
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    icon.classList.remove('fa-sun');
-                    icon.classList.add('fa-moon');
-                    localStorage.setItem('theme', 'light');
-                }
-            });
+            // 2. Xử lý link Google Drive (Video)
+            if (url.includes('drive.google.com')) {
+                return url.replace('/view', '/preview').replace('?usp=drivesdk', '');
+            }
+
+            // 3. Xử lý link Google Docs (Word/Excel...) để xem trước thay vì sửa
+            if (url.includes('docs.google.com')) {
+                 // Chuyển /edit thành /preview để nhúng iframe đẹp hơn
+                 return url.split('/edit')[0] + '/preview';
+            }
+
+            // 4. Các link khác trả về nguyên gốc
+            return url;
         }
 
-        function fetchData() {
-            // Thêm tham số thời gian để tránh Cache trình duyệt, giúp dữ liệu cập nhật ngay lập tức
-            const cacheBuster = '&t=' + new Date().getTime();
-            const finalUrl = CSV_URL_BASE + cacheBuster;
+        function renderSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const header = sidebar.querySelector('.sidebar-header');
+            sidebar.innerHTML = '';
+            sidebar.appendChild(header);
 
-            Papa.parse(finalUrl, {
-                download: true, header: true, skipEmptyLines: true,
-                complete: function(results) {
-                    allCourses = results.data;
-                    if (allCourses.length > 0) {
-                        document.getElementById('loading').classList.add('hidden');
-                        populateCategories();
-                        renderCourses(allCourses);
-                    } else {
-                        document.getElementById('loading').innerHTML = "Không tìm thấy dữ liệu hoặc trang tính rỗng.";
+            courseData.forEach((unit, uIndex) => {
+                const group = document.createElement('div');
+                group.className = 'unit-group';
+                if (uIndex === 0) group.classList.add('active'); 
+
+                const title = document.createElement('div');
+                title.className = 'unit-title';
+                title.innerHTML = `<span>${unit.unit}</span> <i class="fas fa-chevron-down"></i>`;
+                title.onclick = () => { group.classList.toggle('active'); };
+
+                const list = document.createElement('ul');
+                list.className = 'lesson-list';
+
+                unit.lessons.forEach((lesson, lIndex) => {
+                    const li = document.createElement('li');
+                    li.className = 'lesson-item';
+                    li.id = `lesson-${uIndex}-${lIndex}`;
+                    li.dataset.uIndex = uIndex;
+                    li.dataset.lIndex = lIndex;
+                    
+                    // Kiểm tra loại icon (video hoặc tài liệu)
+                    let iconClass = "fa-play";
+                    if(lesson.title.toLowerCase().includes('word') || lesson.title.toLowerCase().includes('sach')) {
+                        iconClass = "fa-file-word";
                     }
-                },
-                error: function(err) { 
-                    console.error(err);
-                    document.getElementById('loading').innerHTML = "Lỗi tải dữ liệu. Vui lòng kiểm tra đường truyền.";
-                }
-            });
-        }
 
-        function getIconForCategory(catName) {
-            const name = catName.toLowerCase();
-            if (name.includes('marketing')) return 'fa-bullhorn';
-            if (name.includes('kinh doanh') || name.includes('business')) return 'fa-briefcase';
-            if (name.includes('thiết kế') || name.includes('design')) return 'fa-palette';
-            if (name.includes('lập trình') || name.includes('code') || name.includes('it')) return 'fa-laptop-code';
-            if (name.includes('ngoại ngữ') || name.includes('tiếng')) return 'fa-language';
-            if (name.includes('kỹ năng')) return 'fa-star';
-            if (name.includes('nhạc') || name.includes('họa')) return 'fa-music';
-            if (name.includes('sức khỏe')) return 'fa-heartbeat';
-            return 'fa-folder'; 
-        }
-
-        function populateCategories() {
-            const categories = new Set();
-            allCourses.forEach(course => {
-                let cat = course.DanhMuc || course['DanhMuc'];
-                if(cat) categories.add(cat.trim());
-            });
-
-            const container = document.getElementById('categoryList');
-            container.innerHTML = '';
-
-            // Nút Tất cả
-            const allBtn = createCategoryTag('Tất cả', 'all', '#eff6ff', 'fa-layer-group');
-            allBtn.classList.add('active'); 
-            container.appendChild(allBtn);
-
-            let colorIndex = 0;
-            categories.forEach(cat => {
-                const color = pastelColors[colorIndex % pastelColors.length];
-                const icon = getIconForCategory(cat);
-                const tag = createCategoryTag(cat, cat, color, icon);
-                container.appendChild(tag);
-                colorIndex++;
-            });
-        }
-
-        function createCategoryTag(label, value, color, iconClass) {
-            const div = document.createElement('div');
-            div.className = 'cat-tag';
-            div.style.backgroundColor = color;
-            div.setAttribute('data-value', value);
-            div.onclick = () => selectCategory(value, div);
-            
-            div.innerHTML = `
-                <i class="fas ${iconClass}"></i>
-                <span>${label}</span>
-            `;
-            return div;
-        }
-
-        function selectCategory(val, element) {
-            currentCategory = val;
-            const tags = document.querySelectorAll('.cat-tag');
-            tags.forEach(t => t.classList.remove('active'));
-            element.classList.add('active');
-            filterCourses();
-            
-            // Mobile: Scroll to content when category clicked
-            if (window.innerWidth <= 992) {
-                document.getElementById('courseList').scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        function filterCourses() {
-            const searchTerm = document.getElementById('searchInp').value.toLowerCase().trim();
-
-            const filtered = allCourses.filter(course => {
-                let ten = course.TenKhoaHoc || course['TenKhoaHoc'];
-                let danhmuc = course.DanhMuc || course['DanhMuc'];
-                
-                if (!ten) return false;
-                const matchName = ten.toLowerCase().includes(searchTerm);
-                const matchCat = currentCategory === 'all' || (danhmuc && danhmuc.trim() === currentCategory);
-                return matchName && matchCat;
-            });
-
-            renderCourses(filtered);
-        }
-
-        function renderCourses(courses) {
-            const container = document.getElementById('courseList');
-            container.innerHTML = '';
-            
-            if (courses.length === 0) {
-                container.innerHTML = '<p style="text-align:center; width:100%; color:var(--text-muted); grid-column: 1/-1; padding: 20px;">Không tìm thấy khóa học phù hợp.</p>';
-                return;
-            }
-
-            courses.forEach(course => {
-                let ten = course.TenKhoaHoc || course['TenKhoaHoc']; 
-                let danhmuc = course.DanhMuc || course['DanhMuc'];
-                let urlChung = course.URL || course['URL']; 
-                if (!ten) return;
-
-                let buttonsHtml = '';
-                if (urlChung) {
-                    buttonsHtml = `
-                        <a href="${urlChung}" target="_blank" class="btn btn-primary"><i class="fas fa-play"></i> Học ngay</a>
-                        <a href="${urlChung}" target="_blank" class="btn btn-outline"><i class="fas fa-download"></i> Tải về</a>
-                    `;
-                }
-
-                const card = `
-                    <div class="card">
-                        <div class="card-icon-wrapper"><i class="fas fa-book-open"></i></div>
-                        <div class="card-body">
-                            <span class="badge">${danhmuc || 'Chung'}</span>
-                            <h3 class="card-title" title="${ten}">${ten}</h3>
-                            <div class="card-actions">${buttonsHtml}</div>
+                    li.innerHTML = `
+                        <div class="thumbnail-placeholder"><i class="fas ${iconClass}"></i></div>
+                        <div class="lesson-details">
+                            <div class="lesson-name">${lesson.title}</div>
+                            <div class="lesson-status">Bài ${lIndex + 1}</div>
                         </div>
-                    </div>
-                `;
-                container.innerHTML += card;
+                    `;
+                    
+                    li.onclick = (e) => {
+                        e.stopPropagation();
+                        loadLesson(uIndex, lIndex);
+                    };
+                    list.appendChild(li);
+                });
+
+                group.appendChild(title);
+                group.appendChild(list);
+                sidebar.appendChild(group);
             });
         }
+
+        function loadLesson(uIndex, lIndex) {
+            currentUnitIndex = uIndex;
+            currentLessonIndex = lIndex;
+            const lesson = courseData[uIndex].lessons[lIndex];
+            
+            document.getElementById('lessonTitle').innerText = lesson.title;
+            document.getElementById('unitName').innerText = courseData[uIndex].unit;
+            document.getElementById('videoPlayer').src = getEmbedLink(lesson.link);
+            document.getElementById('driveLinkBtn').href = lesson.link;
+
+            document.querySelectorAll('.lesson-item').forEach(item => item.classList.remove('active'));
+            const activeItem = document.getElementById(`lesson-${uIndex}-${lIndex}`);
+            
+            if (activeItem) {
+                activeItem.classList.add('active');
+                if (window.innerWidth > 991) {
+                    activeItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+
+            if (window.innerWidth <= 991) {
+                document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function nextLesson() {
+            const currentUnit = courseData[currentUnitIndex];
+            if (currentLessonIndex < currentUnit.lessons.length - 1) {
+                loadLesson(currentUnitIndex, currentLessonIndex + 1);
+            } else if (currentUnitIndex < courseData.length - 1) {
+                const nextUnitIndex = currentUnitIndex + 1;
+                const groups = document.querySelectorAll('.unit-group');
+                groups.forEach(g => g.classList.remove('active'));
+                groups[nextUnitIndex].classList.add('active');
+                loadLesson(nextUnitIndex, 0);
+            } else {
+                alert("Bạn đã hoàn thành bài học cuối cùng!");
+            }
+        }
+
+        function prevLesson() {
+            if (currentLessonIndex > 0) {
+                loadLesson(currentUnitIndex, currentLessonIndex - 1);
+            } else if (currentUnitIndex > 0) {
+                const prevUnitIndex = currentUnitIndex - 1;
+                const lastLessonIndex = courseData[prevUnitIndex].lessons.length - 1;
+                const groups = document.querySelectorAll('.unit-group');
+                groups.forEach(g => g.classList.remove('active'));
+                groups[prevUnitIndex].classList.add('active');
+                loadLesson(prevUnitIndex, lastLessonIndex);
+            }
+        }
+
+        window.onload = () => {
+            renderSidebar();
+            loadLesson(0, 0);
+        };
     </script>
 </body>
 </html>
