@@ -2,696 +2,272 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Khoá Học Mall - Tiếng Anh Giao Tiếp</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Giá Siêu Ưu Đãi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* --- CÀI ĐẶT CƠ BẢN --- */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
         :root {
-            --primary-color: #0066cc;
-            --primary-dark: #004c99;
-            --accent-light: #e6f2ff;
-            --bg-page: #f0f2f5;
-            --text-dark: #1c1e21;
-            --sidebar-width: 380px;
-            --header-height: 60px;
-            --success-color: #28a745;
-            --warning-bg: #fff3cd;
-            --warning-text: #856404;
-            --warning-border: #ffeeba;
+            --primary-color: #0f9d58;
+            --primary-dark: #0b7040;
+            --accent-color: #ffbf00;
+            --text-color: #333;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html { scroll-behavior: smooth; }
-        
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #b0c4de; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #0066cc; }
 
         body {
-            background-color: var(--bg-page);
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #f0f2f5 100%);
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            overflow-x: auto;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            background: var(--white);
+            animation: fadeIn 1s ease-in-out;
+            margin-bottom: 25px;
+        }
+
+        /* --- BẢNG --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 20px;
             overflow: hidden;
+            min-width: 600px;
         }
 
-        /* HEADER */
-        header {
-            background-color: var(--primary-color);
-            height: var(--header-height);
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            justify-content: space-between;
+        th, td {
+            padding: 20px 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
         }
 
-        .logo {
-            font-size: 18px;
-            font-weight: 700;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
+        /* --- HEADERS --- */
+        thead tr {
+            background: var(--primary-dark);
+            color: var(--white);
             text-transform: uppercase;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-right: 10px;
-        }
-        .logo i { font-size: 24px; }
-
-        /* HEADER BUTTONS GROUP */
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            letter-spacing: 1px;
         }
 
-        /* STYLE CHUNG CHO CÁC NÚT HEADER */
-        .btn-header {
-            color: #fff;
-            padding: 8px 16px;
+        th { font-weight: 700; position: relative; }
+
+        /* --- CỘT NỔI BẬT --- */
+        td:nth-child(3), th:nth-child(3) {
+            background-color: #e8f5e9;
+            font-weight: 600;
+            border-left: 2px solid var(--primary-color);
+            border-right: 2px solid var(--primary-color);
+            position: relative;
+        }
+        
+        th:nth-child(3) { background-color: var(--primary-color); font-size: 1.1em; }
+
+        th:nth-child(3)::after {
+            content: "🔥 BEST CHOICE";
+            position: absolute;
+            top: -15px; left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-color);
+            color: #000;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 0.7em;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            animation: bounce 2s infinite;
+        }
+
+        /* --- TEXT STYLES --- */
+        .price-original { text-decoration: line-through; color: #999; font-size: 0.9em; }
+        .price-deal { color: var(--primary-dark); font-size: 1.5em; font-weight: 800; display: block; }
+        .feature-icon { color: var(--primary-color); margin-right: 8px; }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid rgba(255,255,255,0.3);
-            white-space: nowrap;
-        }
-
-        .btn-header:active { transform: scale(0.95); }
-        .btn-header:hover { transform: scale(1.05); z-index: 1; }
-
-        /* Hiệu ứng lấp lánh chung */
-        .btn-header::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg);
-            animation: shine 3s infinite;
-        }
-        @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
-
-        /* MÀU SẮC RIÊNG TỪNG NÚT */
-        
-        /* 1. Nút OneDrive (Xanh dương đám mây) */
-        .btn-onedrive {
-            background: linear-gradient(135deg, #0078D4 0%, #00bcf2 100%);
-            box-shadow: 0 4px 15px rgba(0, 120, 212, 0.4);
-        }
-
-        /* 2. Nút Google Drive (Xanh lá/Teal) */
-        .btn-googledrive {
-            background: linear-gradient(135deg, #0F9D58 0%, #00d2ff 100%);
-            box-shadow: 0 4px 15px rgba(15, 157, 88, 0.4);
-        }
-
-        /* 3. Nút Mở Khóa (Vàng cam - Cũ) */
-        .btn-unlock {
-            background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
-            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
-        }
-
-        /* LAYOUT CONTAINER */
-        .container {
-            display: flex;
-            flex-direction: row;
-            margin-top: var(--header-height);
-            height: calc(100vh - var(--header-height));
-            overflow: hidden;
-        }
-
-        /* 1. LEFT: MAIN CONTENT */
-        .main-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .video-wrapper {
-            width: 100%;
-            max-width: 1000px;
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; border: none;
-        }
-
-        .lesson-info {
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 20px;
-        }
-
-        .lesson-title {
-            font-size: 22px;
             font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        .lesson-meta {
-            color: #606060;
-            font-size: 14px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        /* ACTIONS & BUTTONS */
-        .lesson-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 10px 16px;
-            border: none;
-            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s;
-            text-decoration: none;
             white-space: nowrap;
         }
-        .btn:active { transform: translateY(1px); }
-
-        .btn-primary { 
-            background-color: var(--primary-color); 
-            color: white; 
-            box-shadow: 0 2px 5px rgba(0, 102, 204, 0.2);
-        }
-        .btn-primary:hover { background-color: var(--primary-dark); }
-        
-        .btn-outline { 
-            background: white; 
-            color: var(--primary-color); 
-            border: 1px solid var(--primary-color); 
-        }
-        .btn-outline:hover { background: var(--accent-light); }
-
-        /* LƯU Ý / NOTE SECTION */
-        .note-alert {
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 20px;
-            background-color: var(--warning-bg);
-            color: var(--warning-text);
-            border: 1px solid var(--warning-border);
-            padding: 15px;
-            border-radius: 8px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        
-        .note-alert i {
-            font-size: 18px;
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
-
-        /* MATERIALS SECTION */
-        .materials-section {
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 20px;
-            margin-bottom: 30px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-        }
-
-        .materials-header {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .materials-desc {
-            font-size: 13px;
+        .btn-basic {
+            background-color: transparent;
+            border: 2px solid #999;
             color: #666;
-            margin-bottom: 15px;
-            line-height: 1.5;
         }
-
-        .btn-download {
-            background-color: var(--success-color);
+        .btn-basic:hover {
+            border-color: var(--primary-dark);
+            color: var(--primary-dark);
+            background-color: #f1f8e9;
+        }
+        .btn-vip {
+            background: linear-gradient(45deg, #ff9800, #ff5722);
             color: white;
-            width: 100%;
-            max-width: 250px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+            animation: pulse-btn 1.5s infinite;
         }
-        .btn-download:hover { background-color: #218838; }
-
-        /* 2. RIGHT: SIDEBAR PLAYLIST */
-        .sidebar {
-            width: var(--sidebar-width);
-            background: #fff;
-            border-left: 1px solid #e0e0e0;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            flex-shrink: 0;
-            height: 100%;
+        .btn-vip:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 87, 34, 0.6);
+            background: linear-gradient(45deg, #ff5722, #ff9800);
         }
 
-        .sidebar-header {
-            padding: 15px 20px;
-            border-bottom: 2px solid var(--primary-color);
-            position: sticky; top: 0; 
-            background: #f8faff;
-            z-index: 10;
-        }
-        
-        .playlist-info h3 { font-size: 16px; color: var(--primary-dark); margin-bottom: 2px; }
-        .playlist-info span { font-size: 12px; color: #666; }
-
-        .unit-group { border-bottom: 1px solid #eee; }
-
-        .unit-title {
-            padding: 12px 15px;
-            background: #fff;
-            cursor: pointer;
-            font-weight: 600;
-            color: #444;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            transition: background 0.2s;
-        }
-        .unit-title:hover { background: #f5f5f5; color: var(--primary-color); }
-        .unit-group.active .unit-title i { transform: rotate(180deg); }
-
-        .lesson-list { display: none; list-style: none; }
-        .unit-group.active .lesson-list { display: block; }
-
-        .lesson-item {
-            display: flex;
-            gap: 10px;
-            padding: 12px 15px;
-            cursor: pointer;
-            transition: all 0.2s;
-            align-items: flex-start;
-            border-left: 3px solid transparent;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .lesson-item:hover { background-color: #f0f8ff; }
-        
-        .lesson-item.active {
-            background-color: var(--accent-light);
-            border-left: 3px solid var(--primary-color);
-        }
-        
-        .lesson-item.active .lesson-name {
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-        
-        .lesson-item.active .thumbnail-placeholder {
-            background-color: var(--primary-color);
+        /* --- BADGES & HIỆU ỨNG --- */
+        .badge-save {
+            background: linear-gradient(45deg, #ff357a, #fff172);
             color: white;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255, 53, 122, 0.4);
+            animation: pulse 2s infinite;
         }
 
-        .thumbnail-placeholder {
-            width: 70px;
-            height: 40px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-            font-size: 10px;
-        }
-        
-        .lesson-name {
-            font-size: 13px;
-            font-weight: 500;
-            color: #333;
-            line-height: 1.3;
-            margin-bottom: 2px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .lesson-status { font-size: 11px; color: #888; }
-
-        /* RESPONSIVE */
-        @media (max-width: 991px) {
-            body { height: auto; overflow: visible; }
-            .container { flex-direction: column; height: auto; margin-top: var(--header-height); }
-            .main-content { width: 100%; padding: 15px; order: 1; }
-            .sidebar { width: 100%; height: auto; max-height: 500px; border-left: none; border-top: 1px solid #ddd; order: 2; }
-            .lesson-title { font-size: 20px; }
+        .badge-limited {
+            background: #ff4757; color: white;
+            padding: 5px 10px; border-radius: 5px;
+            font-size: 0.9em; display: inline-flex; align-items: center; gap: 5px;
         }
 
-        @media (max-width: 600px) {
-            header { padding: 0 10px; }
-            .logo span { font-size: 15px; max-width: 120px; }
-            
-            /* Responsive cho nút Header */
-            .header-actions { gap: 6px; }
-            .btn-header { padding: 8px; border-radius: 50%; width: 36px; height: 36px; justify-content: center; }
-            .btn-header span { display: none; } /* Ẩn chữ trên mobile */
-            .btn-header i { font-size: 14px; margin: 0; }
-            
-            .main-content { padding: 10px; }
-            .lesson-title { font-size: 18px; margin-top: 10px; }
-            .lesson-actions .btn { flex: 1; padding: 12px; }
-            .materials-section { padding: 15px; }
-            .video-wrapper { margin: -10px -10px 0 -10px; width: calc(100% + 20px); max-width: none; }
-            .video-container { border-radius: 0; }
+        .sparkle-text {
+            background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        /* --- HOVER EFFECTS --- */
+        tbody tr { transition: all 0.3s ease; }
+        tbody tr:hover { background-color: #f9fbe7; transform: scale(1.01); box-shadow: 0 5px 15px rgba(0,0,0,0.05); z-index: 10; position: relative; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-5px);} 60% {transform: translateX(-50%) translateY(-3px);} }
+        @keyframes pulse-btn {
+            0% { box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 87, 34, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 87, 34, 0); }
+        }
+
+        /* --- NOTE BOX --- */
+        .note-box {
+            width: 100%; max-width: 960px;
+            background-color: #fffde7; border-left: 5px solid var(--accent-color);
+            padding: 15px 20px; border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 1em; color: #616161;
+            display: flex; align-items: center; gap: 15px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .note-box i { color: var(--accent-color); font-size: 1.5em; }
+        .note-box strong { color: var(--primary-dark); font-weight: 700; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            th, td { padding: 10px 5px; font-size: 0.9em; }
+            .price-deal { font-size: 1.2em; }
+            .badge-save { font-size: 0.8em; padding: 5px 10px; }
+            .note-box { font-size: 0.9em; flex-direction: column; text-align: center; }
+            .btn { padding: 8px 15px; font-size: 0.8em; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo">
-            <i class="fas fa-graduation-cap"></i> <span>Khoá Học Mall</span>
-        </a>
-        
-        <div class="header-actions">
-            <a href="https://onedrive.live.com/" target="_blank" class="btn-header btn-onedrive" title="Mở OneDrive">
-                <i class="fas fa-cloud"></i> <span>OneDrive</span>
-            </a>
-
-            <a href="https://drive.google.com/" target="_blank" class="btn-header btn-googledrive" title="Mở Google Drive">
-                <i class="fab fa-google-drive"></i> <span>GoogleDrive</span>
-            </a>
-
-            <a href="https://khoahocmall.com/cua-hang/" target="_blank" class="btn-header btn-unlock" title="Mở khóa nội dung">
-                <i class="fas fa-unlock-alt"></i> <span>Mở khóa nội dung</span>
-            </a>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="main-content" id="mainContent">
-            <div class="video-wrapper">
-                <div class="video-container">
-                    <iframe id="videoPlayer" src="" allowfullscreen allow="autoplay" title="Video Player"></iframe>
-                </div>
-            </div>
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Đặc điểm</th>
+                <th style="width: 25%;">👤 Gói Cá Nhân<br><span style="font-size: 0.7em; opacity: 0.8; text-transform: none;">(Giá Niêm Yết)</span></th>
+                <th style="width: 25%;">👥 Gói Ghép Nhóm<br><span style="font-size: 0.7em; opacity: 0.9; text-transform: none;">(Tối đa 3 người)</span></th>
+                <th style="width: 25%;">🚀 Lợi Ích Lớn</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align: left; font-weight: bold;"><i class="fas fa-tag feature-icon"></i>Giá Tiền (1 Bạn)</td>
+                <td><span class="price-original">999K</span></td>
+                <td><span class="price-deal">333K</span></td>
+                <td><span class="badge-save">✨ TIẾT KIỆM 66%</span></td>
+            </tr>
+            <tr>
+                <td style="text-align: left; font-weight: bold;"><i class="fas fa-crown feature-icon"></i>Quyền Sở Hữu</td>
+                <td>Vĩnh Viễn</td>
+                <td><i class="fas fa-check-circle" style="color:green"></i> Vĩnh Viễn</td>
+                <td>Không đổi (Trọn đời)</td>
+            </tr>
+            <tr>
+                <td style="text-align: left; font-weight: bold;"><i class="fas fa-users feature-icon"></i>Tài Khoản</td>
+                <td>01 Tài khoản</td>
+                <td class="sparkle-text">03 Tài khoản Riêng Biệt</td>
+                <td><i class="fas fa-user-shield"></i> Tối đa hóa riêng tư</td>
+            </tr>
+            <tr>
+                <td style="text-align: left; font-weight: bold;"><i class="fas fa-cogs feature-icon"></i>Cơ Chế</td>
+                <td>Cá nhân</td>
+                <td><span style="color: #d32f2f; font-weight: bold;">KHÔNG DÙNG CHUNG</span></td>
+                <td>Trải nghiệm tốt nhất</td>
+            </tr>
+            <tr>
+                <td style="text-align: left; font-weight: bold;"><i class="fas fa-gift feature-icon"></i>Quyền Lợi</td>
+                <td>Kho + Update mới</td>
+                <td>Kho + Update mới</td>
+                <td style="color: var(--primary-dark); font-weight: bold;">Quyền lợi như nhau</td>
+            </tr>
             
-            <div class="lesson-info">
-                <h1 class="lesson-title" id="lessonTitle">Loading...</h1>
-                <div class="lesson-meta">
-                    <i class="fas fa-folder-open"></i> <span id="unitName">Chương học</span>
-                </div>
-                
-                <div class="lesson-actions">
-                    <button class="btn btn-outline" onclick="prevLesson()">
-                        <i class="fas fa-chevron-left"></i> Trước
-                    </button>
-                    <button class="btn btn-outline" onclick="nextLesson()">
-                        Tiếp theo <i class="fas fa-chevron-right"></i>
-                    </button>
-                    <a href="#" target="_blank" class="btn btn-primary" id="driveLinkBtn">
-                        <i class="fab fa-google-drive"></i> Link Drive
-                    </a>
-                </div>
-            </div>
+            <tr>
+                <td style="text-align: left; font-weight: bold;"><i class="fas fa-rocket feature-icon"></i>Kích Hoạt</td>
+                <td>Tự động 2-5 phút</td>
+                <td><i class="fas fa-check" style="color: var(--primary-color);"></i> <strong>Tự động 2-5 phút</strong></td>
+                <td><i class="fas fa-magic"></i> Có ngay tài khoản</td>
+            </tr>
 
-            <div class="note-alert">
-                <i class="fas fa-exclamation-triangle"></i>
-                <div>
-                    <strong>Lưu ý:</strong> Nếu khóa học không trình chiếu được, bạn hãy ấn trực tiếp đến nút <strong>Link Drive</strong> để tải về hoặc xem trực tiếp trên Drive nhé!
-                </div>
-            </div>
+            <tr>
+                <td style="text-align: left; font-weight: bold;"><i class="fas fa-hourglass-half feature-icon"></i>Hạn Chót</td>
+                <td>Không áp dụng</td>
+                <td><div class="badge-limited"><i class="fas fa-clock"></i> 31/12/2025</div></td>
+                <td style="font-style: italic; color: #d32f2f;">Số lượng có hạn!</td>
+            </tr>
+            <tr style="background-color: #fafafa;">
+                <td style="text-align: left; font-weight: bold;"><i class="fas fa-paper-plane feature-icon"></i>Đăng Ký</td>
+                <td><a href="#" class="btn btn-basic">Đăng Ký Lẻ</a></td>
+                <td><a href="#" class="btn btn-vip"><i class="fas fa-bolt"></i> CHỐT ĐƠN 333K</a></td>
+                <td><i class="fas fa-arrow-left" style="color: var(--primary-color);"></i> Nên Chọn Gói Này</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-            <div class="materials-section">
-                <div class="materials-header">
-                    <i class="fas fa-box-open" style="color: #28a745;"></i> Tài liệu khóa học
-                </div>
-                <p class="materials-desc">
-                    Tải xuống toàn bộ tài liệu thực hành, file nghe và bài tập đính kèm.
-                </p>
-                <a href="https://drive.google.com/drive/folders/10VkQb0UymRSCi3ygDSKjcMzGITcpiwDJ" target="_blank" class="btn btn-download">
-                    <i class="fas fa-cloud-download-alt"></i> Tải tài liệu
-                </a>
-            </div>
-        </div>
+<div class="note-box">
+    <i class="fas fa-info-circle"></i>
+    <p>
+        <strong>Nếu bạn chưa tìm được người để ghép, đừng quá lo lắng!</strong> 
+        Hệ thống sẽ tìm kiếm ngẫu nhiên những bạn trong cơ sở dữ liệu của Web có nhu cầu nâng cấp và ghép với bạn.
+    </p>
+</div>
 
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <div class="playlist-info">
-                    <h3>Chinh phục tiếng anh từ con số 0</h3>
-                    <span>Danh sách bài học</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Dữ liệu khóa học
-        const courseData = [
-            {
-                unit: "Phần 1. Tại sao tôi cần phải giỏi tiếng anh",
-                lessons: [
-                    // CẬP NHẬT: Link bài 1 mới
-                    { title: "Bài 01_ Động lực học tiếng anh", link: "https://drive.google.com/file/d/1qAhNo8R4uVEPnw0nS-8dyTkTGGT29vmi/view?usp=sharing" },
-                    
-                    { title: "Bài 02_ Cam kết của khóa học", link: "https://drive.google.com/file/d/1c6kXgV5_kMSCIA7OrYkvRm2WpdKj8BLz/view?usp=drivesdk" },
-                    { title: "Bài 03_ Lộ trình của khóa học", link: "https://drive.google.com/file/d/1WnWRdfVipgG_TaLgHD87_WLvq1q7Inc5/view?usp=drivesdk" }
-                ]
-            },
-            {
-                unit: "Phần 2. Ngữ âm Chuẩn mỹ bằng phương pháp Crazy english",
-                lessons: [
-                    { title: "Bài 05_ Thực hành và ví dụ nguyên âm đơn e & æ", link: "https://drive.google.com/file/d/1_IMS3hIXPIjZCFfcj6v-UL7Pztdz8Q5-/view?usp=drivesdk" },
-                    { title: "Bài 06_ Thực hành và ví dụ nguyên âm đơn ʌ and ɜːr", link: "https://drive.google.com/file/d/1-x3yRvxPqrTda5eeP1-IqsHpSAVjTh1T/view?usp=drivesdk" },
-                    { title: "Bài 08_ Thực hành và ví dụ nguyên âm đơn ɑː & ɑːr", link: "https://drive.google.com/file/d/1gG_Ai26TeANLyqaGyKEX-ILrngTAqcWw/view?usp=drivesdk" },
-                    { title: "Bài 10_ Thực hành và ví dụ nguyên âm đơn ʊ & uː", link: "https://drive.google.com/file/d/1XW7XGd-2JDGpRaM1sByIX6pkPpMSKvCU/view?usp=drivesdk" },
-                    { title: "Bài 11_ Chuyên đề 2_ Nguyên âm đôi - Thực hành và ví dụ nguyên âm đôi eɪ & aɪ", link: "https://drive.google.com/file/d/1t6GWZUnatYrIbtcel47V3FvGFU6tqXbg/view?usp=drivesdk" },
-                    { title: "Bài 12_ Thực hành và ví dụ nguyên âm đôi ɔɪ, aʊ & oʊ", link: "https://drive.google.com/file/d/111MPpX7wbCKbfygQvtXN9Sw7nTUDnEBn/view?usp=drivesdk" },
-                    { title: "Bài 13_ Chuyên đề 3_ Phụ âm - Thực hành và ví dụ phụ âm p & b", link: "https://drive.google.com/file/d/1c87qWQIA3nIsHHlDoaQA8LgB37aS6HGr/view?usp=drivesdk" },
-                    { title: "Bài 14_ Thực hành và ví dụ phụ âm t & d", link: "https://drive.google.com/file/d/1iHB3dL4mHjoT0ZTbZSJ-I2bysxm7hvxw/view?usp=drivesdk" },
-                    { title: "Bài 15_ Thực hành và ví dụ phụ âm k & g", link: "https://drive.google.com/file/d/1R8FKFNuUZX9a6-FqhE2YJ7yq2fx616uT/view?usp=drivesdk" },
-                    { title: "Bài 16_ Thực hành và ví dụ phụ âm f & v", link: "https://drive.google.com/file/d/1h4Sy88zLENTE5t3j46ITzkKQWsIkg06-/view?usp=drivesdk" },
-                    { title: "Bài 17_ Thực hành và ví dụ phụ âm θ & ð", link: "https://drive.google.com/file/d/1pJIE3ILWpdAX2U5i_hwG5BpA9XQfELYC/view?usp=drivesdk" },
-                    { title: "Bài 18_ Thực hành và ví dụ phụ âm h & r & w", link: "https://drive.google.com/file/d/1-udPEIw2FS-NyQtX3MPet_34TTozbg02/view?usp=drivesdk" },
-                    { title: "Bài 19_ Thực hành và ví dụ phụ âm s, z, ʃ, ʒ", link: "https://drive.google.com/file/d/1U1p1vLwdpp5tu6nbMT9wkftjbcRnzFcr/view?usp=drivesdk" },
-                    { title: "Bài 20_ Thực hành và ví dụ phụ âm tʃ, dʒ", link: "https://drive.google.com/file/d/1ZEpnrdV3EvrkGjHtBlm116gnt2oy5ogc/view?usp=drivesdk" },
-                    { title: "Bài 21_ Thực hành và ví dụ phụ âm m, n & ŋ", link: "https://drive.google.com/file/d/19iHLYG1dH7tDB0KA3WPZPGf0_87kv6eb/view?usp=drivesdk" },
-                    { title: "Bài 22_ Thực hành và ví dụ phụ âm l, j", link: "https://drive.google.com/file/d/1O1k6d_w30XRuDdqdVe92NL8iWqfNjc3o/view?usp=drivesdk" },
-                    { title: "Bài 23_ Chủ đề 4_ ngữ âm nâng cao - Nối âm, biến âm và giảm âm", link: "https://drive.google.com/file/d/1IZ2eUIOJPRIZ2SW5qdUODyYY0vxDCCLu/view?usp=drivesdk" },
-                    { title: "Bài 04_ Chuyên đề 1_ nguyên âm đơn - Thực hành và ví dụ nguyên âm đơn I & i", link: "https://drive.google.com/file/d/15G_EfA_sAQavSPK058Zn6rTxqlZnEXiH/view?usp=drivesdk" },
-                    { title: "Bài 07_ Thực hành và ví dụ nguyên âm đơn ər & ə", link: "https://drive.google.com/file/d/199_XWg9bJocWdmNwafbYz3hrXJpMPRCp/view?usp=drivesdk" },
-                    { title: "Bài 09_ Thực hành và ví dụ nguyên âm đơn ɔː & ɔːr", link: "https://drive.google.com/file/d/16zjMs8SpGPm4A_FxUaJD7lxcXQUj0LtY/view?usp=drivesdk" }
-                ]
-            },
-            {
-                unit: "Phần 3. Thuyết Trình theo đầy tự tin",
-                lessons: [
-                    { title: "Bài 24_ I'm Vietnamese", link: "https://drive.google.com/file/d/1RJTt1rcMMgrkih3Vz_SjDTci_UFZkzDW/view?usp=drivesdk" },
-                    { title: "Bài 25_ My oath", link: "https://drive.google.com/file/d/1SRoewQP02kJYEtM9pND28Ygx1Ti2NsFI/view?usp=drivesdk" },
-                    { title: "Bài 26_ Success is up To you", link: "https://drive.google.com/file/d/1K_4zOzVjJGmUxypL1bQqHqZqolKDZ6KQ/view?usp=drivesdk" },
-                    { title: "Bài 27_ Just do it", link: "https://drive.google.com/file/d/1WkZ8BtiTgoJOj9NuIHtwpJd2xNM7h4BQ/view?usp=drivesdk" },
-                    { title: "Bài 28_ How to introduce about yourself", link: "https://drive.google.com/file/d/1f5PV510WvCS2t35EuUy4KGs69YLFSvYM/view?usp=drivesdk" }
-                ]
-            },
-            {
-                unit: "Phần 4. Hội thoại thực tế theo chủ đề",
-                lessons: [
-                    { title: "Bài 29_ Greeting", link: "https://drive.google.com/file/d/13e0VGFszGYDZF18jxx781wl-pwUbDwFT/view?usp=drivesdk" },
-                    { title: "Bài 30_ Hobbies", link: "https://drive.google.com/file/d/1E_yCspVVMwyUYG7Z04Evn-nqhgwHjuYl/view?usp=drivesdk" },
-                    { title: "Bài 31_ Day Routine", link: "https://drive.google.com/file/d/1PS232ByHUT3-7mpiN0Kl-ooJvtsVCVyd/view?usp=drivesdk" },
-                    { title: "Bài 32_ Part of Body", link: "https://drive.google.com/file/d/1u7g8RsbHEdlkPQA5XpqNbZnITUEFbFma/view?usp=drivesdk" },
-                    { title: "Bài 33_ Clothes and shopping", link: "https://drive.google.com/file/d/1sHeMoPnyd4gZdXkfzlZzD-D93yeXwSoR/view?usp=drivesdk" },
-                    { title: "Bài 34_ Jobs", link: "https://drive.google.com/file/d/1hUjjIIn-FDj4Ld45Cev5SlRgtj1Vxiny/view?usp=drivesdk" }
-                ]
-            },
-            {
-                unit: "Tài Liệu Đính Kèm",
-                lessons: [
-                    { title: "Sach-starter-ban-chuan (Word)", link: "https://docs.google.com/document/d/1Lz56zDHOp_ASfCpTuwkpXWOSFazot15s/edit?usp=drivesdk&ouid=107921716647467550967&rtpof=true&sd=true" }
-                ]
-            }
-        ];
-
-        let currentUnitIndex = 0;
-        let currentLessonIndex = 0;
-
-        // --- HÀM XỬ LÝ LINK (Cập nhật hỗ trợ Docs) ---
-        function getEmbedLink(url) {
-            if (url.includes('facebook.com') || url.includes('fb.watch')) {
-                let encodedUrl = encodeURIComponent(url);
-                return `https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=0&t=0`;
-            }
-            if (url.includes('drive.google.com')) {
-                return url.replace('/view', '/preview').replace('?usp=drivesdk', '');
-            }
-            if (url.includes('docs.google.com')) {
-                 return url.split('/edit')[0] + '/preview';
-            }
-            return url;
-        }
-
-        function renderSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const header = sidebar.querySelector('.sidebar-header');
-            sidebar.innerHTML = '';
-            sidebar.appendChild(header);
-
-            courseData.forEach((unit, uIndex) => {
-                const group = document.createElement('div');
-                group.className = 'unit-group';
-                if (uIndex === 0) group.classList.add('active'); 
-
-                const title = document.createElement('div');
-                title.className = 'unit-title';
-                title.innerHTML = `<span>${unit.unit}</span> <i class="fas fa-chevron-down"></i>`;
-                title.onclick = () => { group.classList.toggle('active'); };
-
-                const list = document.createElement('ul');
-                list.className = 'lesson-list';
-
-                unit.lessons.forEach((lesson, lIndex) => {
-                    const li = document.createElement('li');
-                    li.className = 'lesson-item';
-                    li.id = `lesson-${uIndex}-${lIndex}`;
-                    li.dataset.uIndex = uIndex;
-                    li.dataset.lIndex = lIndex;
-                    
-                    let iconClass = "fa-play";
-                    if(lesson.title.toLowerCase().includes('word') || lesson.title.toLowerCase().includes('sach')) {
-                        iconClass = "fa-file-word";
-                    }
-
-                    li.innerHTML = `
-                        <div class="thumbnail-placeholder"><i class="fas ${iconClass}"></i></div>
-                        <div class="lesson-details">
-                            <div class="lesson-name">${lesson.title}</div>
-                            <div class="lesson-status">Bài ${lIndex + 1}</div>
-                        </div>
-                    `;
-                    
-                    li.onclick = (e) => {
-                        e.stopPropagation();
-                        loadLesson(uIndex, lIndex);
-                    };
-                    list.appendChild(li);
-                });
-
-                group.appendChild(title);
-                group.appendChild(list);
-                sidebar.appendChild(group);
-            });
-        }
-
-        function loadLesson(uIndex, lIndex) {
-            currentUnitIndex = uIndex;
-            currentLessonIndex = lIndex;
-            const lesson = courseData[uIndex].lessons[lIndex];
-            
-            document.getElementById('lessonTitle').innerText = lesson.title;
-            document.getElementById('unitName').innerText = courseData[uIndex].unit;
-            document.getElementById('videoPlayer').src = getEmbedLink(lesson.link);
-            document.getElementById('driveLinkBtn').href = lesson.link;
-
-            document.querySelectorAll('.lesson-item').forEach(item => item.classList.remove('active'));
-            const activeItem = document.getElementById(`lesson-${uIndex}-${lIndex}`);
-            
-            if (activeItem) {
-                activeItem.classList.add('active');
-                if (window.innerWidth > 991) {
-                    activeItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            }
-
-            if (window.innerWidth <= 991) {
-                document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        function nextLesson() {
-            const currentUnit = courseData[currentUnitIndex];
-            if (currentLessonIndex < currentUnit.lessons.length - 1) {
-                loadLesson(currentUnitIndex, currentLessonIndex + 1);
-            } else if (currentUnitIndex < courseData.length - 1) {
-                const nextUnitIndex = currentUnitIndex + 1;
-                const groups = document.querySelectorAll('.unit-group');
-                groups.forEach(g => g.classList.remove('active'));
-                groups[nextUnitIndex].classList.add('active');
-                loadLesson(nextUnitIndex, 0);
-            } else {
-                alert("Bạn đã hoàn thành bài học cuối cùng!");
-            }
-        }
-
-        function prevLesson() {
-            if (currentLessonIndex > 0) {
-                loadLesson(currentUnitIndex, currentLessonIndex - 1);
-            } else if (currentUnitIndex > 0) {
-                const prevUnitIndex = currentUnitIndex - 1;
-                const lastLessonIndex = courseData[prevUnitIndex].lessons.length - 1;
-                const groups = document.querySelectorAll('.unit-group');
-                groups.forEach(g => g.classList.remove('active'));
-                groups[prevUnitIndex].classList.add('active');
-                loadLesson(prevUnitIndex, lastLessonIndex);
-            }
-        }
-
-        window.onload = () => {
-            renderSidebar();
-            loadLesson(0, 0);
-        };
-    </script>
 </body>
 </html>
