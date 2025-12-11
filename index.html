@@ -122,7 +122,7 @@
             margin-bottom: 20px;
         }
 
-        /* --- DEMO SECTION (MỚI) --- */
+        /* --- DEMO SECTION --- */
         .demo-section {
             padding: 60px 0;
             background-color: #f4f6f8;
@@ -166,14 +166,14 @@
 
         .demo-iframe {
             width: 100%;
-            height: 600px; /* Chiều cao cố định cho demo */
+            height: 600px;
             border: none;
             display: block;
         }
 
         /* --- PRICING SECTION --- */
         .pricing-section {
-            background: #ffffff; /* Đổi sang nền trắng để tách biệt với demo */
+            background: #ffffff;
             padding: 60px 0;
             border-top: 1px solid #eee;
         }
@@ -198,7 +198,7 @@
 
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: collapse; /* Sử dụng collapse để border liền mạch */
             min-width: 700px;
         }
 
@@ -207,6 +207,27 @@
             text-align: center;
             vertical-align: middle;
             border: 1px solid var(--border-color);
+            position: relative; /* Để z-index hoạt động khi hover */
+        }
+
+        /* --- HIỆU ỨNG RÊ CHUỘT (HOVER ROWS) --- */
+        tbody tr {
+            transition: all 0.2s ease-in-out;
+            background-color: #fff;
+        }
+
+        tbody tr:hover {
+            transform: scale(1.01); /* Phóng to nhẹ */
+            z-index: 100;
+            box-shadow: 0 5px 20px rgba(0, 102, 255, 0.2); /* Đổ bóng xanh */
+            background-color: #fdfdfd;
+            border-left: 5px solid var(--primary-color); /* Viền trái nhấn mạnh */
+        }
+        
+        /* Loại bỏ border trùng khi hover để bóng đẹp hơn */
+        tbody tr:hover td {
+            border-top: 1px solid transparent;
+            border-bottom: 1px solid transparent;
         }
 
         thead tr {
@@ -217,12 +238,18 @@
 
         th { font-size: 1em; letter-spacing: 0.5px; }
 
+        /* --- NỔI BẬT GÓI GHÉP NHÓM (CỘT 3) --- */
         td:nth-child(3), th:nth-child(3) {
             background-color: var(--highlight-bg); 
             font-weight: 600;
             border-left: 2px solid var(--primary-color);
             border-right: 2px solid var(--primary-color);
-            position: relative;
+        }
+
+        /* Khi hover vào dòng, cột 3 vẫn giữ độ nổi bật */
+        tbody tr:hover td:nth-child(3) {
+            background-color: #dbeafe; /* Đậm hơn chút khi hover */
+            box-shadow: inset 0 0 10px rgba(0, 102, 255, 0.1);
         }
 
         th:nth-child(3) { 
@@ -293,7 +320,7 @@
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 1.6em; }
-            .demo-iframe { height: 400px; } /* Giảm chiều cao iframe trên mobile */
+            .demo-iframe { height: 400px; }
             .table-responsive {
                 border-right: 0; border-left: 0; border-radius: 0;
                 width: 100vw; margin-left: -15px; margin-right: -15px;
